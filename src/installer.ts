@@ -46,10 +46,10 @@ export async function getGraalVM(version: string): Promise<void> {
     core.debug(
       'Downloading GraalVM from https://github.com/oracle/graal/releases'
     );
-    let graalvmFile = await tc.downloadTool(
-      `https://github.com/oracle/graal/releases/download/vm-${version}/graalvm-ce-${platform}-amd64-${version}.tar.gz`
-    );
     compressedFileExtension = IS_WINDOWS ? '.zip' : '.tar.gz';
+    let graalvmFile = await tc.downloadTool(
+      `https://github.com/oracle/graal/releases/download/vm-${version}/graalvm-ce-${platform}-amd64-${version}${compressedFileExtension}`
+    );
     let tempDir: string = path.join(
       tempDirectory,
       'temp_' + Math.floor(Math.random() * 2000000000)
