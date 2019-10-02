@@ -1,0 +1,14 @@
+{
+    "problemMatcher": [
+        {
+            "owner": "graalvm",
+            "pattern": [
+                {
+                    "regexp": "^Exception in thread \"(.*)\" (.*): (.*)$",
+                    "code": 2,
+                    "message": 3
+                }
+            ]
+        }
+    ]
+}

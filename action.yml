@@ -1,0 +1,9 @@
+name: 'Setup GraalVM environment'
+description: 'Setup your runner with GraalVM'
+author: 'DeLaGuardo'
+graalvm-version:
+  description: 'The GraalVM version to make available on the path.'
+  required: true
+runs:
+  using: 'node12'
+  main: 'lib/setup-graalvm.js'
