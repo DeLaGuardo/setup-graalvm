@@ -37,7 +37,7 @@ describe('installer tests', () => {
 
       console.log('Downloading graalvm');
       child_process.execSync(
-        `curl -L "${graalvmFilePath}" --output "${graalvmUrl}"`
+        `curl -L "${graalvmUrl}" --output "${graalvmFilePath}"`
       );
       fs.writeFileSync(`${graalvmFilePath}.complete`, 'content');
     }
