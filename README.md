@@ -11,7 +11,7 @@ This action sets up GraalVM environment for using in GitHub Actions.
 ```yaml
 steps:
 - uses: actions/checkout@latest
-- uses: DeLaGuardo/setup-graalvm@latest
+- uses: DeLaGuardo/setup-graalvm@1.0
   with:
     graalvm-version: '19.2.0.1' // GraalVM version, no pattern syntax available atm.
 - run: java -version
