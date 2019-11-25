@@ -52,7 +52,7 @@ export async function getGraalVM(version: string): Promise<void> {
             downloadPath = `https://github.com/oracle/graalvm/releases/download/vm-${version}/graalvm-ce-${platform}-amd64-${version}${compressedFileExtension}`
         }
 
-        core.debug(
+        core.info(
             `Downloading GraalVM from ${downloadPath}`
         );
 
