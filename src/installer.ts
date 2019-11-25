@@ -45,11 +45,11 @@ export async function getGraalVM(version: string): Promise<void> {
   } else {
     const versionParts = version.match(/(.*)\.(java\d{1,2})$/);
     if (versionParts) {
+      compressedFileExtension = IS_WINDOWS ? '.zip' : '.tar.gz';
       const downloadPath = `https://github.com/graalvm/graalvm-ce-builds/releases/download/vm-${versionParts[1]}/graalvm-ce-${versionParts[2]}-${platform}-amd64-${versionParts[1]}${compressedFileExtension}`;
 
       core.info(`Downloading GraalVM from ${downloadPath}`);
 
-      compressedFileExtension = IS_WINDOWS ? '.zip' : '.tar.gz';
       let graalvmFile = await tc.downloadTool(downloadPath);
       let tempDir: string = path.join(
         tempDirectory,
