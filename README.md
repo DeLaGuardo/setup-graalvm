@@ -6,6 +6,10 @@ This action sets up GraalVM environment for using in GitHub Actions.
 * Adds executors provided by GraalVM distribution to the environment
 * Register problem matchers for error output
 
+# Notes:
+
+Since version 19.3.0 each version of graalvm available with modifier to specify version of JDK. java8 and java11 are available atm.
+
 # Usage
 
 ```yaml
@@ -13,7 +17,7 @@ steps:
 - uses: actions/checkout@latest
 - uses: DeLaGuardo/setup-graalvm@1.0
   with:
-    graalvm-version: '19.2.0.1' // GraalVM version, no pattern syntax available atm.
+    graalvm-version: '19.3.0.java8' // GraalVM version, no pattern syntax available atm.
 - run: java -version
 ```
 
