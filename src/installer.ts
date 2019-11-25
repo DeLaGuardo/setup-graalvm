@@ -43,34 +43,32 @@ export async function getGraalVM(version: string): Promise<void> {
   if (toolPath) {
     core.debug(`GraalVM found in cache ${toolPath}`);
   } else {
-    let downloadPath;
     const versionParts = version.match(/(.*)\.(java\d{1,2})$/);
-
     if (versionParts) {
-      downloadPath = `https://github.com/graalvm/graalvm-ce-builds/releases/download/vm-${versionParts[1]}/graalvm-ce-${versionParts[2]}-${platform}-amd64-${versionParts[1]}${compressedFileExtension}`;
+      const downloadPath = `https://github.com/graalvm/graalvm-ce-builds/releases/download/vm-${versionParts[1]}/graalvm-ce-${versionParts[2]}-${platform}-amd64-${versionParts[1]}${compressedFileExtension}`;
+
+      core.info(`Downloading GraalVM from ${downloadPath}`);
+
+      compressedFileExtension = IS_WINDOWS ? '.zip' : '.tar.gz';
+      let graalvmFile = await tc.downloadTool(downloadPath);
+      let tempDir: string = path.join(
+        tempDirectory,
+        'temp_' + Math.floor(Math.random() * 2000000000)
+      );
+      const graalvmDir = await unzipGraalVMDownload(
+        graalvmFile,
+        compressedFileExtension,
+        tempDir
+      );
+      core.debug(`graalvm extracted to ${graalvmDir}`);
+      toolPath = await tc.cacheDir(
+        graalvmDir,
+        'GraalVM',
+        getCacheVersionString(version)
+      );
     } else {
-      downloadPath = `https://github.com/oracle/graalvm/releases/download/vm-${version}/graalvm-ce-${platform}-amd64-${version}${compressedFileExtension}`;
+      throw new Error('No java version in graalvm version string.');
     }
-
-    core.info(`Downloading GraalVM from ${downloadPath}`);
-
-    compressedFileExtension = IS_WINDOWS ? '.zip' : '.tar.gz';
-    let graalvmFile = await tc.downloadTool(downloadPath);
-    let tempDir: string = path.join(
-      tempDirectory,
-      'temp_' + Math.floor(Math.random() * 2000000000)
-    );
-    const graalvmDir = await unzipGraalVMDownload(
-      graalvmFile,
-      compressedFileExtension,
-      tempDir
-    );
-    core.debug(`graalvm extracted to ${graalvmDir}`);
-    toolPath = await tc.cacheDir(
-      graalvmDir,
-      'GraalVM',
-      getCacheVersionString(version)
-    );
   }
 
   let extendedJavaHome = 'JAVA_HOME_' + version;
