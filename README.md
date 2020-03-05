@@ -15,7 +15,7 @@ Since version 19.3.0 each version of graalvm available with modifier to specify 
 ```yaml
 steps:
 - uses: actions/checkout@latest
-- uses: DeLaGuardo/setup-graalvm@2.0
+- uses: DeLaGuardo/setup-graalvm@3
   with:
     graalvm-version: '19.3.0.java8' // GraalVM version, no pattern syntax available atm.
 - run: java -version
