@@ -18,12 +18,6 @@ jobs:
           - os: windows-latest
             binary: java
     steps:
-      - name: Cache graalvm
-        uses: actions/cache@v1
-        with:
-          path: ${{ steps.setup-graalvm.outputs.dir }}
-          key: graalvm-${{ runner.os }}-${{ steps.setup-graalvm.outputs.version }}
-
       - name: Setup Graalvm
         id: setup-graalvm
         uses: DeLaGuardo/setup-graalvm@master

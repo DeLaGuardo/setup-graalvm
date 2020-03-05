@@ -1,0 +1,16 @@
+name: Simple example of using
+
+on: [push]
+
+jobs:
+  with_cache:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup GraalVM
+        uses: DeLaGuardo/setup-graalvm@master
+        with:
+          graalvm-version: 19.3.0.java8
+
+      - name: Check binary
+        run: |
+          java -version

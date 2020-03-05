@@ -76,8 +76,6 @@ export async function getGraalVM(version: string): Promise<void> {
 
   let extendedJavaHome = 'JAVA_HOME_' + version;
   core.exportVariable('JAVA_HOME', toolPath);
-  core.setOutput('dir', toolPath);
-  core.setOutput('version', version);
   core.exportVariable(extendedJavaHome, toolPath);
   core.addPath(path.join(toolPath, 'bin'));
 }
