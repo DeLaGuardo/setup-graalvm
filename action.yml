@@ -8,6 +8,11 @@ inputs:
   graalvm-version:
     description: 'The GraalVM version to make available on the path.'
     required: true
+outputs:
+  dir:
+    description: 'The path where GraalVM is installed. Usefull for caching.'
+  version:
+    description: 'Same as inputs.graalvm-version'
 runs:
   using: 'node12'
   main: 'lib/setup-graalvm.js'
