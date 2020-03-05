@@ -3,7 +3,7 @@ name: Simple example of using
 on: [push]
 
 jobs:
-  with_cache:
+  simple:
     runs-on: ubuntu-latest
     steps:
       - name: Setup GraalVM
