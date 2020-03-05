@@ -40,6 +40,9 @@ export async function getGraalVM(version: string): Promise<void> {
   let toolPath = tc.find('GraalVM', getCacheVersionString(version), os.arch());
   let compressedFileExtension = '';
 
+  const allGraalVMVersions = tc.findAllVersions('GraalVM');
+  core.info(`Versions of graalvm available: ${allGraalVMVersions}`);
+
   if (toolPath) {
     core.debug(`GraalVM found in cache ${toolPath}`);
   } else {
