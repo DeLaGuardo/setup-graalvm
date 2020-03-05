@@ -18,16 +18,18 @@ jobs:
           - os: windows-latest
             binary: java
     steps:
-      - name: Setup Graalvm
-        id: setup-graalvm
-        uses: DeLaGuardo/setup-graalvm@master
-        with:
-          graalvm-version: ${{ matrix.graalvm-version }}
-      - name: Check if binary is available
-        run: |
-          ${{ matrix.binary }} -version
       - name: Cache graalvm
         uses: actions/cache@v1
         with:
           path: ${{ steps.setup-graalvm.outputs.dir }}
           key: graalvm-${{ runner.os }}-${{ steps.setup-graalvm.outputs.version }}
+
+      - name: Setup Graalvm
+        id: setup-graalvm
+        uses: DeLaGuardo/setup-graalvm@master
+        with:
+          graalvm-version: ${{ matrix.graalvm-version }}
+
+      - name: Check if binary is available
+        run: |
+          ${{ matrix.binary }} -version
