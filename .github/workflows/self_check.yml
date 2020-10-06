@@ -20,7 +20,7 @@ jobs:
     steps:
       - name: Setup Graalvm
         id: setup-graalvm
-        uses: DeLaGuardo/setup-graalvm@upgrade-libs
+        uses: DeLaGuardo/setup-graalvm@master
         with:
           graalvm-version: ${{ matrix.graalvm-version }}
 
