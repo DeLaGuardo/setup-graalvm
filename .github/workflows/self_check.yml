@@ -9,7 +9,7 @@ jobs:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
         binary: [java, java.exe]
-        graalvm-version: [19.3.0.java8, 19.3.0.java11, 20.0.0.java8, 20.0.0.java11]
+        graalvm-version: [19.3.0.java8, 19.3.0.java11, 20.0.0.java8, 20.0.0.java11, 20.1.0.java8, 20.1.0.java11, 20.2.0.java8, 20.2.0.java11]
         exclude:
           - os: ubuntu-latest
             binary: java.exe
@@ -20,7 +20,7 @@ jobs:
     steps:
       - name: Setup Graalvm
         id: setup-graalvm
-        uses: DeLaGuardo/setup-graalvm@master
+        uses: DeLaGuardo/setup-graalvm@upgrade-libs
         with:
           graalvm-version: ${{ matrix.graalvm-version }}
 

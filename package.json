@@ -7,7 +7,10 @@
   "scripts": {
     "build": "tsc",
     "format": "prettier --write **/*.ts",
-    "format-check": "prettier --check **/*.ts"
+    "format-check": "prettier --check **/*.ts",
+    "lint": "eslint src/**/*.ts",
+    "package": "ncc build --source-map",
+    "all": "npm run build && npm run format && npm run lint && npm run package"
   },
   "repository": {
     "type": "git",
@@ -22,21 +25,17 @@
   "license": "MIT",
   "dependencies": {
     "@actions/core": "^1.2.6",
-    "@actions/exec": "^1.0.3",
+    "@actions/exec": "^1.0.4",
     "@actions/io": "^1.0.2",
-    "@actions/tool-cache": "^1.3.1"
+    "@actions/tool-cache": "^1.6.0"
   },
   "devDependencies": {
-    "@types/node": "^12.12.29",
+    "@types/node": "^14.0.25",
+    "@vercel/ncc": "^0.24.1",
     "@types/semver": "^6.2.1",
-    "prettier": "^1.19.1",
-    "typescript": "^3.8.3"
-  },
-  "husky": {
-    "skipCI": true,
-    "hooks": {
-      "pre-commit": "npm run build && npm run format",
-      "post-commit": "npm prune --production && git add node_modules/* && git commit -m \"Husky commit correct node modules\""
-    }
+    "eslint": "^7.10.0",
+    "eslint-plugin-github": "^4.1.1",
+    "prettier": "^2.0.5",
+    "typescript": "^3.9.7"
   }
 }
