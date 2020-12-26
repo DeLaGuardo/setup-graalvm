@@ -27,4 +27,4 @@ jobs:
 
       - name: Check gu binary
         run: |
-          ${{ matrix.gu-binary }} available
+          ${{ matrix.gu-binary }} install native-image
