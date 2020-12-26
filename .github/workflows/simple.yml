@@ -4,13 +4,18 @@ on: [push]
 
 jobs:
   simple:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
     steps:
       - name: Setup GraalVM
         uses: DeLaGuardo/setup-graalvm@master
         with:
-          graalvm-version: 19.3.0.java8
+          graalvm-version: 20.3.0.java11
 
-      - name: Check binary
-        run: |
-          java -version
+      - name: Check java binary
+        run: java -version
+
+      - name: Check gu binary
+        run: gu available
