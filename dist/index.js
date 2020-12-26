@@ -100,8 +100,8 @@ function getGraalVM(version) {
         }
         const extendedJavaHome = `JAVA_HOME_${version}`;
         core.exportVariable('JAVA_HOME', toolPath);
-        core.exportVariable('GRAALVM_HOME', toolPath);
         core.exportVariable(extendedJavaHome, toolPath);
+        core.exportVariable('GRAALVM_HOME', toolPath);
         core.addPath(path.join(toolPath, 'bin'));
     });
 }

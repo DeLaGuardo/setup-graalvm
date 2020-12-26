@@ -8,6 +8,14 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
+        gu-binary: [gu, gu.cmd]
+        exclude:
+          - os: ubuntu-latest
+            gu-binary: gu.cmd
+          - os: macos-latest
+            gu-binary: gu.cmd
+          - os: windows-latest
+            gu-binary: gu
     steps:
       - name: Setup GraalVM
         uses: DeLaGuardo/setup-graalvm@master
@@ -18,4 +26,5 @@ jobs:
         run: java -version
 
       - name: Check gu binary
-        run: gu available
+        run: |
+          ${{ matrix.gu-binary }} available
