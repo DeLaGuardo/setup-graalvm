@@ -18,12 +18,6 @@ jobs:
             binary: java.exe
           - os: windows-latest
             binary: java
-          - os: ubuntu-latest
-            gu-binary: gu.cmd
-          - os: macos-latest
-            gu-binary: gu.cmd
-          - os: windows-latest
-            gu-binary: gu
     steps:
       - name: Setup Graalvm
         id: setup-graalvm
@@ -34,7 +28,3 @@ jobs:
       - name: Check if binary is available
         run: |
           ${{ matrix.binary }} -version
-
-      - name: Check if components can be installed using gu
-        run: |
-          ${{ matrix.gu-binary }} list
