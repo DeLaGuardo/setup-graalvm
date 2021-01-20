@@ -14,12 +14,15 @@ jobs:
         exclude:
           - os: ubuntu-latest
             binary: java.exe
-            gu-binary: gu.cmd
           - os: macos-latest
             binary: java.exe
-            gu-binary: gu.cmd
           - os: windows-latest
             binary: java
+          - os: ubuntu-latest
+            gu-binary: gu.cmd
+          - os: macos-latest
+            gu-binary: gu.cmd
+          - os: windows-latest
             gu-binary: gu
     steps:
       - name: Setup Graalvm
