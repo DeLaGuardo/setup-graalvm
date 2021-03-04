@@ -35,11 +35,11 @@ jobs:
         gu-binary: [gu, gu.cmd]
         exclude:
           - os: ubuntu-latest
-            gu-binary: gu.cmd
-          - os: macos-latest
-            gu-binary: gu.cmd
-          - os: windows-latest
             gu-binary: gu
+          - os: macos-latest
+            gu-binary: gu
+          - os: windows-latest
+            gu-binary: gu.cmd
     steps:
       - name: Setup Graalvm
         id: setup-graalvm
