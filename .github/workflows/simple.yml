@@ -11,7 +11,7 @@ jobs:
         with:
           graalvm: 21.0.0.2
           java: java11
-          arch: aarch64
+          arch: amd64
 
       - name: Check java binary
         run: java -version
