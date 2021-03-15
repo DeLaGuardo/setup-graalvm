@@ -3,6 +3,22 @@ name: Simple example of using
 on: [push]
 
 jobs:
+  linux:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup GraalVM
+        uses: DeLaGuardo/setup-graalvm@new-parameters
+        with:
+          graalvm: 21.0.0.2
+          java: java11
+          arch: aarch64
+
+      - name: Check java binary
+        run: java -version
+
+      - name: Check gu binary
+        run: gu install native-image
+
   simple:
     runs-on: ${{ matrix.os }}
     strategy:
@@ -18,9 +34,10 @@ jobs:
             gu-binary: gu
     steps:
       - name: Setup GraalVM
-        uses: DeLaGuardo/setup-graalvm@master
+        uses: DeLaGuardo/setup-graalvm@new-parameters
         with:
-          graalvm-version: 20.3.0.java11
+          graalvm: 21.0.0.2
+          java: java11
 
       - name: Check java binary
         run: java -version
