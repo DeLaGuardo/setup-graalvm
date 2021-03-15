@@ -6,8 +6,16 @@ branding:
   color: 'blue'
 inputs:
   graalvm-version:
-    description: 'The GraalVM version to make available on the path.'
-    required: true
+    description: '(deparecated) The GraalVM version to make available on the path.'
+  graalvm:
+    description: 'The GraalVM version, defaults to 21.0.0.2'
+    default: '21.0.0.2'
+  java:
+    description: 'The Java version GraalVM is based on, defaults to java8'
+    default: 'java8'
+  arch:
+    description: 'The desired architecture. Options are - "amd64" (default), and "aarch64" (for linux only)'
+    default: 'amd64'
 runs:
   using: 'node12'
   main: 'dist/index.js'
