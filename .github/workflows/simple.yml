@@ -19,6 +19,20 @@ jobs:
       - name: Check gu binary
         run: gu install native-image
 
+  linux_deprecated:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup GraalVM
+        uses: DeLaGuardo/setup-graalvm@new-parameters
+        with:
+          graalvm-version: 21.0.0.2.java11
+
+      - name: Check java binary
+        run: java -version
+
+      - name: Check gu binary
+        run: gu install native-image
+
   simple:
     runs-on: ${{ matrix.os }}
     strategy:
