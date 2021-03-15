@@ -13,7 +13,7 @@ async function run(): Promise<void> {
     if (deprecatedVersion) {
       const versionParts = deprecatedVersion.match(/(.*)\.(java\d{1,2})$/)
       if (versionParts) {
-        await installer.getGraalVM(versionParts[0], versionParts[1], arch)
+        await installer.getGraalVM(versionParts[1], versionParts[2], arch)
       }
     } else {
       await installer.getGraalVM(graalvm, java, arch)
