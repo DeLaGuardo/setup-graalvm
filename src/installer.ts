@@ -4,7 +4,6 @@ import * as exec from '@actions/exec'
 import * as tc from '@actions/tool-cache'
 import * as fs from 'fs'
 import * as path from 'path'
-import * as os from 'os'
 
 let tempDirectory = process.env['RUNNER_TEMP'] || ''
 
@@ -36,8 +35,13 @@ if (IS_WINDOWS) {
   }
 }
 
-export async function getGraalVM(version: string): Promise<void> {
-  let toolPath = tc.find('GraalVM', getCacheVersionString(version), os.arch())
+export async function getGraalVM(
+  graalvm: string,
+  java: string,
+  arch: string
+): Promise<void> {
+  const version = `${graalvm}.${java}.${arch}`
+  let toolPath = tc.find('GraalVM', getCacheVersionString(version), arch)
   let compressedFileExtension = ''
 
   const allGraalVMVersions = tc.findAllVersions('GraalVM')
@@ -46,10 +50,9 @@ export async function getGraalVM(version: string): Promise<void> {
   if (toolPath) {
     core.debug(`GraalVM found in cache ${toolPath}`)
   } else {
-    const versionParts = version.match(/(.*)\.(java\d{1,2})$/)
-    if (versionParts) {
+    if (java) {
       compressedFileExtension = IS_WINDOWS ? '.zip' : '.tar.gz'
-      const downloadPath = `https://github.com/graalvm/graalvm-ce-builds/releases/download/vm-${versionParts[1]}/graalvm-ce-${versionParts[2]}-${platform}-amd64-${versionParts[1]}${compressedFileExtension}`
+      const downloadPath = `https://github.com/graalvm/graalvm-ce-builds/releases/download/vm-${graalvm}/graalvm-ce-${java}-${platform}-${arch}-${graalvm}${compressedFileExtension}`
 
       core.info(`Downloading GraalVM from ${downloadPath}`)
 
@@ -70,7 +73,7 @@ export async function getGraalVM(version: string): Promise<void> {
         getCacheVersionString(version)
       )
     } else {
-      throw new Error('No java version in graalvm version string.')
+      throw new Error('No java version.')
     }
   }
 

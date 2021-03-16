@@ -45,7 +45,11 @@ jobs:
         id: setup-graalvm
         uses: DeLaGuardo/setup-graalvm@master
         with:
-          graalvm-version: '21.0.0.java11'
+          graalvm: '21.0.0.2'
+          # optional, available: java8 and java11, defaults to java8
+          java: 'java11'
+          # optional, available: amd64 and aarch64, defaults to amd64
+          arch: 'amd64'
 
       - name: Install native-image component
         run: |
