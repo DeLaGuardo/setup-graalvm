@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Setup GraalVM
-        uses: DeLaGuardo/setup-graalvm@new-parameters
+        uses: DeLaGuardo/setup-graalvm@master
         with:
           graalvm: 21.0.0.2
           java: java11
@@ -23,7 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Setup GraalVM
-        uses: DeLaGuardo/setup-graalvm@new-parameters
+        uses: DeLaGuardo/setup-graalvm@master
         with:
           graalvm-version: 21.0.0.2.java11
 
@@ -48,7 +48,7 @@ jobs:
             gu-binary: gu
     steps:
       - name: Setup GraalVM
-        uses: DeLaGuardo/setup-graalvm@new-parameters
+        uses: DeLaGuardo/setup-graalvm@master
         with:
           graalvm: 21.0.0.2
           java: java11
