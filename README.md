@@ -15,9 +15,14 @@ Since version 19.3.0 each version of graalvm available with modifier to specify 
 ```yaml
 steps:
 - uses: actions/checkout@latest
-- uses: DeLaGuardo/setup-graalvm@master
+- uses: DeLaGuardo/setup-graalvm@4.0
   with:
-    graalvm-version: '19.3.0.java8' // GraalVM version, no pattern syntax available atm.
+    # GraalVM version, no pattern syntax available atm
+    graalvm: '21.0.0.2'
+    # Java version, optional, defaults to 'java8'. Available options are 'java8' and 'java11'.
+    java: 'java11'
+    # Architecture flag, optional, defaults to 'amd64'. Available options are 'amd64' and 'aarch64'. Later is available only for linux runners.
+    arch: 'amd64'
 - run: java -version
 ```
 
@@ -45,10 +50,11 @@ jobs:
         id: setup-graalvm
         uses: DeLaGuardo/setup-graalvm@master
         with:
+          # GraalVM version, no pattern syntax available atm
           graalvm: '21.0.0.2'
-          # optional, available: java8 and java11, defaults to java8
+          # Java version, optional, defaults to 'java8'. Available options are 'java8' and 'java11'.
           java: 'java11'
-          # optional, available: amd64 and aarch64, defaults to amd64
+          # Architecture flag, optional, defaults to 'amd64'. Available options are 'amd64' and 'aarch64'. Later is available only for linux runners.
           arch: 'amd64'
 
       - name: Install native-image component
