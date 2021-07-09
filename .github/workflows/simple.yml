@@ -57,5 +57,20 @@ jobs:
         run: java -version
 
       - name: Check gu binary
-        run: |
-          ${{ matrix.gu-binary }} install native-image
+        run: ${{ matrix.gu-binary }} install native-image
+
+  issue_17:
+    runs-on: macos-latest
+    steps:
+      - name: Setup GraalVM
+        uses: DeLaGuardo/setup-graalvm@4.0
+        with:
+          graalvm: 21.0.0.2
+          java: java11
+          arch: amd64
+
+      - name: Check java binary
+        run: java -version
+
+      - name: Check gu binary
+        run: gu install native-image
