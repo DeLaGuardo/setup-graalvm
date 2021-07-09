@@ -72,5 +72,11 @@ jobs:
       - name: Check java binary
         run: java -version
 
+      - name: env
+        run: set
+
+      - name: List RUNNER_TEMP
+        run: ls -lR ${RUNNER_TEMP}
+
       - name: Check gu binary
         run: gu install native-image
