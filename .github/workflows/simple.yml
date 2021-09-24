@@ -75,7 +75,7 @@ jobs:
             gu-binary: gu
     steps:
       - name: Setup GraalVM Nightly Build
-        uses: DeLaGuardo/setup-graalvm@nightly
+        uses: DeLaGuardo/setup-graalvm@master
         with:
           graalvm: 'nightly'
           java: java11
