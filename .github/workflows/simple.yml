@@ -59,3 +59,31 @@ jobs:
       - name: Check gu binary
         run: |
           ${{ matrix.gu-binary }} install native-image
+
+  nightly:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        gu-binary: [gu, gu.cmd]
+        exclude:
+          - os: ubuntu-latest
+            gu-binary: gu.cmd
+          - os: macos-latest
+            gu-binary: gu.cmd
+          - os: windows-latest
+            gu-binary: gu
+    steps:
+      - name: Setup GraalVM Nightly Build
+        uses: DeLaGuardo/setup-graalvm@nightly
+        with:
+          graalvm: 'nightly'
+          java: java11
+          personal-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Check java binary
+        run: java -version
+
+      - name: Check gu binary
+        run: |
+          ${{ matrix.gu-binary }} install native-image

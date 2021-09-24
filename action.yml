@@ -16,6 +16,8 @@ inputs:
   arch:
     description: 'The desired architecture. Options are - "amd64" (default), and "aarch64" (for linux only)'
     default: 'amd64'
+  personal-token:
+    description: 'https://docs.github.com/en/actions/security-guides/automatic-token-authentication'
 runs:
   using: 'node12'
   main: 'dist/index.js'

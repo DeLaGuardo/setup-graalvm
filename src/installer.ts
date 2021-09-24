@@ -2,6 +2,7 @@ import * as core from '@actions/core'
 import * as io from '@actions/io'
 import * as exec from '@actions/exec'
 import * as tc from '@actions/tool-cache'
+import * as github from '@actions/github'
 import * as fs from 'fs'
 import * as path from 'path'
 
@@ -80,6 +81,95 @@ export async function getGraalVM(
   const extendedJavaHome = `JAVA_HOME_${version}`
   core.exportVariable('JAVA_HOME', toolPath)
   core.exportVariable(extendedJavaHome, toolPath)
+  core.exportVariable('GRAALVM_HOME', toolPath)
+  core.addPath(path.join(toolPath, 'bin'))
+}
+
+export async function getNightlyBuild(
+  java: string,
+  arch: string,
+  token: string
+): Promise<void> {
+  const octokit = github.getOctokit(token)
+  const compressedFileExtension = IS_WINDOWS ? '.zip' : '.tar.gz'
+  const {
+    repository: {
+      releases: {
+        edges: [
+          {
+            node: {
+              releaseAssets: {
+                edges: [
+                  {
+                    node: {
+                      downloadUrl,
+                      release: {
+                        tag: {name}
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      }
+    }
+  } = await octokit.graphql(
+    `
+      {
+        repository(owner: "graalvm", name: "graalvm-ce-dev-builds") {
+          releases(last: 1) {
+            edges {
+              node {
+                releaseAssets(first: 1, name: "graalvm-ce-${java}-${platform}-${arch}-dev${compressedFileExtension}") {
+                  edges {
+                    node {
+                      downloadUrl
+                      release {
+                        tag {
+                          name
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    `
+  )
+
+  const version = `${name}.${java}.${arch}`
+  let toolPath = tc.find('GraalVM', getCacheVersionString(version), arch)
+
+  if (toolPath) {
+    core.debug(`GraalVM found in cache ${toolPath}`)
+  } else {
+    core.info(`Downloading Nightly GraalVM from ${downloadUrl}`)
+
+    const graalvmFile = await tc.downloadTool(downloadUrl)
+    const tempDir: string = path.join(
+      tempDirectory,
+      `temp_${Math.floor(Math.random() * 2000000000)}`
+    )
+    const graalvmDir = await unzipGraalVMDownload(
+      graalvmFile,
+      compressedFileExtension,
+      tempDir
+    )
+    core.debug(`graalvm extracted to ${graalvmDir}`)
+    toolPath = await tc.cacheDir(
+      graalvmDir,
+      'GraalVM',
+      getCacheVersionString(version)
+    )
+  }
+
+  core.exportVariable('JAVA_HOME', toolPath)
+  core.exportVariable('JAVA_HOME_NIGHTLY', toolPath)
   core.exportVariable('GRAALVM_HOME', toolPath)
   core.addPath(path.join(toolPath, 'bin'))
 }

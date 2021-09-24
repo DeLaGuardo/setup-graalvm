@@ -15,6 +15,9 @@ async function run(): Promise<void> {
       if (versionParts) {
         await installer.getGraalVM(versionParts[1], versionParts[2], arch)
       }
+    } else if (graalvm === 'nightly') {
+      const token = core.getInput('personal-token')
+      await installer.getNightlyBuild(java, arch, token)
     } else {
       await installer.getGraalVM(graalvm, java, arch)
     }
