@@ -15,10 +15,27 @@ Since version 19.3.0 each version of graalvm available with modifier to specify 
 ```yaml
 steps:
 - uses: actions/checkout@latest
-- uses: DeLaGuardo/setup-graalvm@4.0
+- uses: DeLaGuardo/setup-graalvm@5.0
   with:
     # GraalVM version, no pattern syntax available atm
     graalvm: '21.0.0.2'
+    # Java version, optional, defaults to 'java8'. Available options are 'java8' and 'java11'.
+    java: 'java11'
+    # Architecture flag, optional, defaults to 'amd64'. Available options are 'amd64' and 'aarch64'. Later is available only for linux runners.
+    arch: 'amd64'
+- run: java -version
+```
+
+# Nightly builds
+
+``` yaml
+steps:
+- uses: actions/checkout@latest
+- uses: DeLaGuardo/setup-graalvm@5.0
+  with:
+    graalvm: 'nightly'
+    # secret token needed to fetch latest nightly release automatically
+    personal-token: ${{ secrets.GITHUB_TOKEN }}
     # Java version, optional, defaults to 'java8'. Available options are 'java8' and 'java11'.
     java: 'java11'
     # Architecture flag, optional, defaults to 'amd64'. Available options are 'amd64' and 'aarch64'. Later is available only for linux runners.
