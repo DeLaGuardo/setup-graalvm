@@ -1,5 +1,7 @@
 # setup-graalvm
 
+***This project is no longer maintained. Please consider using [setup-graalvm action from graalvm team](https://github.com/graalvm/setup-graalvm).***
+
 This action sets up GraalVM environment for using in GitHub Actions.
 
 * It downloads (if it is not cached yet) required version of GraalVM Community edition
